@@ -1,0 +1,97 @@
+[tool.poetry]
+name = "charitable-foundation"
+version = "1.0.0"
+description = "Проект \"Благотворительный фонд\""
+authors = ["Patin Dmitry"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11.5"
+fastapi = "0.78.0"
+fastapi-users = "10.0.4"
+aiogoogle = "4.2.0"
+sqlalchemy = "1.4.36"
+fastapi-users-db-sqlalchemy = "4.0.3"
+python-dotenv = "0.20.0"
+aiosqlite = "0.17.0"
+uvicorn = "0.17.6"
+bcrypt = "3.2.2"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "6.2.5"
+pytest-asyncio = "0.18.3"
+mixer = "7.2.2"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.14"
+
+[tool.poetry.group.migrations]
+optional = true
+
+[tool.poetry.group.migrations.dependencies]
+alembic = "^1.7.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "UP", # pyupgrade
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+    "SIM",# flake8-simplify
+]
+ignore = [
+    "B905",
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+#    "C901",  # too complex
+]
+
+fixable = ["ALL"]
+unfixable = []
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "tests",
+    "dist",
+    "node_modules",
+    "venv",
+#    "*/settings.py",
+    "*/migrations/"
+]
+per-file-ignores = {}
+
+line-length = 79
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+target-version = "py311"
