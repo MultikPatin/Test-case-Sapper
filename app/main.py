@@ -1,18 +1,32 @@
+import os
+
+from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from app.api.routers import main_router
-from app.core.config import settings
-from app.core.init_db import create_first_superuser
+from app.schemas import GameInfoResponse, GameTurnRequest, NewGameRequest
+from app.services import Sapper
 
-app = FastAPI(title=settings.app_title, description=settings.description)
+load_dotenv()
 
-app.include_router(main_router)
+app = FastAPI(
+    title=os.environ.get("APP_TITLE", default="APP_TITLE"),
+    description=os.environ.get("APP_DESCRIPTION", default="APP_DESCRIPTION"),
+)
+
+game = Sapper()
 
 
-@app.on_event("startup")
-async def startup() -> None:
-    """
-    Создание суперпользователя при старте приложения
-    :return: None
-    """
-    await create_first_superuser()
+@app.post(
+    "/new",
+    response_model=GameInfoResponse,
+)
+async def create_new_game(obj_in: NewGameRequest):
+    return game.create_new_game(obj_in)
+
+
+@app.post(
+    "/turn",
+    response_model=GameInfoResponse,
+)
+async def create_new_turn(obj_in: GameTurnRequest):
+    return game.create_new_turn(obj_in)

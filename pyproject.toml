@@ -1,41 +1,23 @@
 [tool.poetry]
-name = "charitable-foundation"
+name = "Sapper"
 version = "1.0.0"
-description = "Проект \"Благотворительный фонд\""
+description = "Сепёр"
 authors = ["Patin Dmitry"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11.5"
-fastapi = "0.78.0"
-fastapi-users = "10.0.4"
-aiogoogle = "4.2.0"
-sqlalchemy = "1.4.36"
-fastapi-users-db-sqlalchemy = "4.0.3"
-python-dotenv = "0.20.0"
-aiosqlite = "0.17.0"
-uvicorn = "0.17.6"
-bcrypt = "3.2.2"
+fastapi = "^0.109.1"
+python-dotenv = "^1.0.1"
+uvicorn = "0.27.1"
 
-[tool.poetry.group.test]
-optional = true
-
-[tool.poetry.group.test.dependencies]
-pytest = "6.2.5"
-pytest-asyncio = "0.18.3"
-mixer = "7.2.2"
 
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.1.14"
-
-[tool.poetry.group.migrations]
-optional = true
-
-[tool.poetry.group.migrations.dependencies]
-alembic = "^1.7.7"
+mypy = "^1.8.0"
+ruff = "^0.2.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -56,7 +38,7 @@ ignore = [
     "B905",
     "E501",  # line too long, handled by black
     "B008",  # do not perform function calls in argument defaults
-#    "C901",  # too complex
+    "C901",  # too complex
 ]
 
 fixable = ["ALL"]
@@ -85,13 +67,48 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
-#    "*/settings.py",
+    "*/settings.py",
     "*/migrations/"
 ]
 per-file-ignores = {}
 
-line-length = 79
+line-length = 80
 
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 target-version = "py311"
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 60
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "tests",
+    "dist",
+    "node_modules",
+    "venv",
+    "*/settings.py",
+    "*/migrations/"
+]
